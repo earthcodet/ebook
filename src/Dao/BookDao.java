@@ -45,14 +45,15 @@ public class BookDao {
                 String eBookKinds = data.getString("eBookKinds");
                 String publisherName = data.getString("publisherName");
                 String authorName = data.getString("authorName");
-                String fileBook = data.getString("fileBook");
+                String linkFile = data.getString("linkFile");
+                String fileFormat = data.getString("fileFormat");
                 int eBookPrice = data.getInteger("eBookPrice");
                 int eBookCoverPrice = data.getInteger("eBookCoverPrice");
                 int fileEbookSize = data.getInteger("fileEbookSize");
                 int pages = data.getInteger("pages");
                 ObjectId eBookCover_id = data.getObjectId("eBookCover_id");
-                result = new Data.Book(0b1, eBookName, eBookKinds, publisherName, authorName, fileBook,
-                        eBookPrice, eBookCoverPrice, fileEbookSize, pages, eBookCover_id);
+                result = new Data.Book(0b1, eBookName, eBookKinds, publisherName, authorName, linkFile,
+                        eBookPrice, eBookCoverPrice, fileEbookSize, pages, fileFormat, eBookCover_id);
             }
             return result;
         } catch (Exception eX) {
