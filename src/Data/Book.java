@@ -52,4 +52,18 @@ public class Book {
         this.eBookKinds = eBookKinds;
         this.linkFile = linkFile;
     }
+     
+      public String toString(){
+         return eBookId + "\n"
+                 +eBookName+ "\n"
+         +publisherName+ "\n"
+         +authorName+ "\n"
+         +fileFormat+ "\n"
+         +eBookPrice+ "\n"
+         +eBookCoverPrice+ "\n"
+         +fileBookSize+ "\n"
+         +pages+ "\n"
+         +eBookKinds+ "\n" 
+         +linkFile+ "\n";
+     }
 }
