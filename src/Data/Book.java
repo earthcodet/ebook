@@ -11,7 +11,8 @@ public class Book {
     public String eBookKinds;
     public String publisherName;
     public String authorName;
-    public String fileBook;
+    public String linkFile;
+    public String fileFormat;
     public int eBookPrice;
     public int eBookCoverPrice;
     public int fileBookSize;
@@ -21,13 +22,13 @@ public class Book {
         this.pages = pages;
     }
     public Book(int eBookId,String eBookName,String eBookKinds,String publisherName,
-            String authorName,String fileBook,int eBookPrice,int eBookCoverPrice,
+            String authorName,String linkFile,int eBookPrice,int eBookCoverPrice,
             int fileEbookSize,int pages, ObjectId eBookCover_id) {
         this.eBookId = eBookId;
         this.eBookName = eBookName;
         this.publisherName = publisherName;
         this.authorName = authorName;
-        this.fileBook = fileBook;
+        this.linkFile = linkFile;
         this.eBookPrice = eBookPrice;
         this.eBookCoverPrice = eBookCoverPrice;
         this.fileBookSize = fileEbookSize;
@@ -37,31 +38,18 @@ public class Book {
     }
     
      public Book(int eBookId,String eBookName,String eBookKinds,String publisherName,
-            String authorName,String fileBook,int eBookPrice,int eBookCoverPrice,
-            int fileEbookSize,int pages) {
+            String authorName,String fileFormat,int eBookPrice,int eBookCoverPrice,
+            int fileEbookSize,int pages, String linkFile) {
         this.eBookId = eBookId;
         this.eBookName = eBookName;
         this.publisherName = publisherName;
         this.authorName = authorName;
-        this.fileBook = fileBook;
+        this.fileFormat = fileFormat;
         this.eBookPrice = eBookPrice;
         this.eBookCoverPrice = eBookCoverPrice;
         this.fileBookSize = fileEbookSize;
         this.pages = pages;
         this.eBookKinds = eBookKinds;
+        this.linkFile = linkFile;
     }
-     public String toString(){
-         return eBookId + "\n"
-                 +eBookName+ "\n"
-         +publisherName+ "\n"
-         +authorName+ "\n"
-         +fileBook+ "\n"
-         +eBookPrice+ "\n"
-         +eBookCoverPrice+ "\n"
-         +fileBookSize+ "\n"
-         +pages+ "\n"
-         +eBookKinds+ "\n";
-         
-         
-     }
 }
