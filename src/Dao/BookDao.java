@@ -46,8 +46,7 @@ public class BookDao {
         Data.Book result = null;
         try {
             Collection = db.getCollection("Book");
-            Document search = new Document("eBookId", eBookId);
-            FindIterable<Document> iterateDoc = Collection.find(search);
+            FindIterable<Document> iterateDoc = Collection.find();
             Iterator<Document> iterator = iterateDoc.iterator();
             while (iterator.hasNext()) {
                 Document data = new Document(iterator.next());
