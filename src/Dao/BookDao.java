@@ -51,9 +51,8 @@ public class BookDao {
                 int fileEbookSize = data.getInteger("fileEbookSize");
                 int pages = data.getInteger("pages");
                 ObjectId eBookCover_id = data.getObjectId("eBookCover_id");
-                String fileType = data.getString("fileType");
                 result = new Data.Book(0b1, eBookName, eBookKinds, publisherName, authorName, fileBook,
-                        eBookPrice, eBookCoverPrice, fileEbookSize, pages, eBookCover_id,fileType );
+                        eBookPrice, eBookCoverPrice, fileEbookSize, pages, eBookCover_id);
             }
             return result;
         } catch (Exception eX) {
@@ -125,7 +124,6 @@ public class BookDao {
             doc.put("fileBookSize", book.fileBookSize);
             doc.put("pages", book.pages);
             doc.put("eBookCover_id", "");
-            doc.put("fileType", book.fileType);
             Collection.insertOne(doc);
             keyBookId = (ObjectId) doc.get("_id");
             ObjectId keyBookImage = uploadImageToChunk(filePic, keyBookId);
@@ -171,7 +169,6 @@ public class BookDao {
                     }
                     ObjectId keyBookImage = uploadImageToChunk(filePic, keyBookId);
                     document.put("eBookCover_id", keyBookImage);
-                    document.put("fileType", book.fileType);
                      Bson bsonUpdate = document;
                     Bson updateOpearation = new Document("$set", bsonUpdate);
                     Collection.updateOne(found, updateOpearation);
@@ -200,5 +197,16 @@ public class BookDao {
             eX.printStackTrace();
             return 0;
         }
+    }
+    
+    public static boolean findBookById(int eBookId) {
+        try {
+            Collection = db.getCollection("Book");
+            Document iterateDoc = Collection.find(new Document("eBookId", eBookId)).first();
+            return iterateDoc.isEmpty();
+        } catch (Exception eX) {
+            eX.printStackTrace();
+        }
+        return false;
     }
 }
