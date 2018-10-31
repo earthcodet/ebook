@@ -32,6 +32,16 @@ public class BookDao {
     static MongoCollection<Document> Collection;
     static GridFSBucket gridFSBucket = GridFSBuckets.create(db);
 
+    
+    public static void main(String[] args) {
+        //D:\8858736500330l.jpg
+        
+    }
+    
+    
+    
+    
+    
     public static Data.Book getBookById(int eBookId) {
         Data.Book result = null;
         try {
