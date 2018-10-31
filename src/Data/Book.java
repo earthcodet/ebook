@@ -16,11 +16,14 @@ public class Book {
     public int eBookCoverPrice;
     public int fileBookSize;
     public int pages;
+    public String linkFile;
     public ObjectId eBookCover_id;
-    public String fileType;
+    public Book(int pages){
+        this.pages = pages;
+    }
     public Book(int eBookId,String eBookName,String eBookKinds,String publisherName,
             String authorName,String fileBook,int eBookPrice,int eBookCoverPrice,
-            int fileEbookSize,int pages, ObjectId eBookCover_id,String fileType) {
+            int fileEbookSize,int pages, ObjectId eBookCover_id) {
         this.eBookId = eBookId;
         this.eBookName = eBookName;
         this.publisherName = publisherName;
@@ -30,7 +33,23 @@ public class Book {
         this.eBookCoverPrice = eBookCoverPrice;
         this.fileBookSize = fileEbookSize;
         this.pages = pages;
+        this.eBookKinds = eBookKinds;
         this.eBookCover_id = eBookCover_id;
-        this.fileType = fileType;
+    }
+    
+     public Book(int eBookId,String eBookName,String eBookKinds,String publisherName,
+            String authorName,String fileBook,int eBookPrice,int eBookCoverPrice,
+            int fileEbookSize,int pages, String linkFile) {
+        this.eBookId = eBookId;
+        this.eBookName = eBookName;
+        this.publisherName = publisherName;
+        this.authorName = authorName;
+        this.fileBook = fileBook;
+        this.eBookPrice = eBookPrice;
+        this.eBookCoverPrice = eBookCoverPrice;
+        this.fileBookSize = fileEbookSize;
+        this.pages = pages;
+        this.eBookKinds = eBookKinds;
+        this.linkFile = linkFile;
     }
 }
