@@ -17,8 +17,8 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import org.bson.types.ObjectId;
-import tools.ImagePanel;
-import tools.OpenFileFilter;
+import image.ImagePanel;
+import image.OpenFileFilter;
 
 /**
  *
@@ -71,7 +71,9 @@ public class EditBook extends javax.swing.JInternalFrame {
         bookID = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
-        bookpic = new tools.ImagePanel();
+        bookpic = new image.ImagePanel();
+        jLabel21 = new javax.swing.JLabel();
+        linkFile = new javax.swing.JTextField();
 
         setMinimumSize(new java.awt.Dimension(900, 504));
         setName(""); // NOI18N
@@ -231,7 +233,16 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel15);
         jLabel15.setBounds(420, 0, 100, 40);
         getContentPane().add(bookpic);
-        bookpic.setBounds(610, 280, 140, 150);
+        bookpic.setBounds(610, 270, 140, 150);
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel21.setText("ลิงค์ไฟล์");
+        getContentPane().add(jLabel21);
+        jLabel21.setBounds(100, 400, 90, 30);
+
+        linkFile.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(linkFile);
+        linkFile.setBounds(190, 400, 210, 30);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -272,8 +283,10 @@ public class EditBook extends javax.swing.JInternalFrame {
                               Integer.parseInt(bookPrice.getText()),
                               Integer.parseInt(bookCoverPrice.getText()),     
                               Integer.parseInt(fileSize.getText()),
-                              Integer.parseInt(pages.getText())          
+                              Integer.parseInt(pages.getText()),
+                              linkFile.getText()
                               );
+            
            BookDao.updateBook(b, filePic);
            JOptionPane.showMessageDialog(EditBook.this, "แก้ไขข้อมูลหนังสือสำเร็จ","ข้อความเตือนการแก้ไขข้อมูล",JOptionPane.INFORMATION_MESSAGE);
         }
@@ -296,7 +309,7 @@ public class EditBook extends javax.swing.JInternalFrame {
     private javax.swing.JTextField bookID;
     private javax.swing.JTextField bookName;
     private javax.swing.JTextField bookPrice;
-    private tools.ImagePanel bookpic;
+    private image.ImagePanel bookpic;
     private javax.swing.JTextField fileSize;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -309,11 +322,13 @@ public class EditBook extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton jSelectPic;
+    private javax.swing.JTextField linkFile;
     private javax.swing.JTextField pages;
     private javax.swing.JTextField publisherName;
     // End of variables declaration//GEN-END:variables
