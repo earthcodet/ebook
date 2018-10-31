@@ -16,7 +16,6 @@ public class Book {
     public int eBookCoverPrice;
     public int fileBookSize;
     public int pages;
-    public String linkFile;
     public ObjectId eBookCover_id;
     public Book(int pages){
         this.pages = pages;
@@ -39,7 +38,7 @@ public class Book {
     
      public Book(int eBookId,String eBookName,String eBookKinds,String publisherName,
             String authorName,String fileBook,int eBookPrice,int eBookCoverPrice,
-            int fileEbookSize,int pages, String linkFile) {
+            int fileEbookSize,int pages) {
         this.eBookId = eBookId;
         this.eBookName = eBookName;
         this.publisherName = publisherName;
@@ -50,6 +49,5 @@ public class Book {
         this.fileBookSize = fileEbookSize;
         this.pages = pages;
         this.eBookKinds = eBookKinds;
-        this.linkFile = linkFile;
     }
 }
