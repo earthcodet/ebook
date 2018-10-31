@@ -32,21 +32,12 @@ public class BookDao {
     static MongoCollection<Document> Collection;
     static GridFSBucket gridFSBucket = GridFSBuckets.create(db);
 
-  
-    public static void main(String[] args) {
-        getMaxId();
-        System.out.println(getMaxId());
-                
-    }
-    
-    
-    
-    
     public static Data.Book getBookById(int eBookId) {
         Data.Book result = null;
         try {
             Collection = db.getCollection("Book");
-            FindIterable<Document> iterateDoc = Collection.find();
+            Document search = new Document("eBookId", eBookId);
+            FindIterable<Document> iterateDoc = Collection.find(search);
             Iterator<Document> iterator = iterateDoc.iterator();
             while (iterator.hasNext()) {
                 Document data = new Document(iterator.next());
@@ -60,7 +51,7 @@ public class BookDao {
                 int fileEbookSize = data.getInteger("fileEbookSize");
                 int pages = data.getInteger("pages");
                 ObjectId eBookCover_id = data.getObjectId("eBookCover_id");
-                result = new Data.Book(eBookId, eBookName, eBookKinds, publisherName, authorName, fileBook,
+                result = new Data.Book(0b1, eBookName, eBookKinds, publisherName, authorName, fileBook,
                         eBookPrice, eBookCoverPrice, fileEbookSize, pages, eBookCover_id);
             }
             return result;
@@ -87,11 +78,11 @@ public class BookDao {
     }
 
     public static boolean deleteBook(int eBookId) {
-        //Data.Book book = getBookById(eBookId);
+        Data.Book book = getBookById(eBookId);
         Collection = db.getCollection("Book");
         try {
-            //gridFSBucket.delete(book.eBookCover_id);
-            Collection.deleteOne(eq("eBookId", eBookId));
+            gridFSBucket.delete(book.eBookCover_id);
+            Collection.deleteOne(eq("eBookId", book.eBookId));
             System.out.println("Delete Success");
             return true;
         } catch (Exception ex) {
@@ -131,6 +122,8 @@ public class BookDao {
             doc.put("eBookPrice", book.eBookPrice);
             doc.put("eBookCoverPrice", book.eBookCoverPrice);
             doc.put("fileBookSize", book.fileBookSize);
+            doc.put("linkFile", book.linkFile);
+            doc.put("fileFormat", book.fileFormat);
             doc.put("pages", book.pages);
             doc.put("eBookCover_id", "");
             Collection.insertOne(doc);
@@ -159,6 +152,8 @@ public class BookDao {
                 document.put("eBookPrice", book.eBookPrice);
                 document.put("eBookCoverPrice", book.eBookCoverPrice);
                 document.put("fileBookSize", book.fileBookSize);
+                document.put("linkFile", book.linkFile);
+                document.put("fileFormat", book.fileFormat);
                 document.put("pages", book.pages);
                 if (filePic == null) {
                     Bson bsonUpdate = document;
@@ -178,7 +173,7 @@ public class BookDao {
                     }
                     ObjectId keyBookImage = uploadImageToChunk(filePic, keyBookId);
                     document.put("eBookCover_id", keyBookImage);
-                     Bson bsonUpdate = document;
+                    Bson bsonUpdate = document;
                     Bson updateOpearation = new Document("$set", bsonUpdate);
                     Collection.updateOne(found, updateOpearation);
                 }
@@ -190,8 +185,7 @@ public class BookDao {
     }
 
     public static int getMaxId() {
-        int Max = 0;
-        boolean check = false ;
+        int Max = Integer.MIN_VALUE;
         try {
             Collection = db.getCollection("Book");
             FindIterable<Document> iterateDoc = Collection.find();
@@ -200,13 +194,9 @@ public class BookDao {
                 Document data = new Document(iterator.next());
                 if (data.getInteger("eBookId") > Max) {
                     Max = data.getInteger("eBookId");
-                    check = true;
                 }
             }
-            if(check)
             return Max + 1;
-            else
-                return Max;
         } catch (Exception eX) {
             eX.printStackTrace();
             return 0;
