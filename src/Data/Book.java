@@ -50,4 +50,18 @@ public class Book {
         this.pages = pages;
         this.eBookKinds = eBookKinds;
     }
+     public String toString(){
+         return eBookId + "\n"
+                 +eBookName+ "\n"
+         +publisherName+ "\n"
+         +authorName+ "\n"
+         +fileBook+ "\n"
+         +eBookPrice+ "\n"
+         +eBookCoverPrice+ "\n"
+         +fileBookSize+ "\n"
+         +pages+ "\n"
+         +eBookKinds+ "\n";
+         
+         
+     }
 }
