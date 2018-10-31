@@ -5,7 +5,20 @@
  */
 package form;
 
+import Dao.BookDao;
+import Data.Book;
+import javax.swing.JFileChooser;
 import java.awt.Color;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import org.bson.types.ObjectId;
+import tools.ImagePanel;
+import tools.OpenFileFilter;
 
 /**
  *
@@ -32,35 +45,33 @@ public class EditBook extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel7 = new javax.swing.JLabel();
-        txtBookName = new javax.swing.JTextField();
-        txtPriceCover = new javax.swing.JTextField();
+        bookName = new javax.swing.JTextField();
+        bookCoverPrice = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        txtType = new javax.swing.JTextField();
-        comboBoxCategory = new javax.swing.JComboBox<>();
+        bookFileFormat = new javax.swing.JTextField();
+        bookComboBox = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        bookpic = new image.ImagePanel();
-        txtPublisher = new javax.swing.JTextField();
+        publisherName = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtAuthor = new javax.swing.JTextField();
-        txtPrice = new javax.swing.JTextField();
+        authorName = new javax.swing.JTextField();
+        bookPrice = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        txtFileSize = new javax.swing.JTextField();
+        fileSize = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        txtNumOfPages = new javax.swing.JTextField();
+        pages = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        txtBookLink = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
         jSelectPic = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
-        jEditBook = new javax.swing.JButton();
-        txtIdBook = new javax.swing.JTextField();
+        EditBook = new javax.swing.JButton();
+        bookID = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        bookpic = new tools.ImagePanel();
 
         setMinimumSize(new java.awt.Dimension(900, 504));
         setName(""); // NOI18N
@@ -73,13 +84,13 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel7);
         jLabel7.setBounds(100, 50, 90, 30);
 
-        txtBookName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtBookName);
-        txtBookName.setBounds(190, 100, 210, 30);
+        bookName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(bookName);
+        bookName.setBounds(190, 100, 210, 30);
 
-        txtPriceCover.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtPriceCover);
-        txtPriceCover.setBounds(590, 100, 210, 30);
+        bookCoverPrice.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(bookCoverPrice);
+        bookCoverPrice.setBounds(590, 100, 210, 30);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel12.setText("ราคาปก");
@@ -91,14 +102,19 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel9);
         jLabel9.setBounds(510, 150, 80, 30);
 
-        txtType.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtType);
-        txtType.setBounds(590, 150, 210, 30);
+        bookFileFormat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(bookFileFormat);
+        bookFileFormat.setBounds(590, 150, 210, 30);
 
-        comboBoxCategory.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        comboBoxCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--เลือกหมวดหมู่หนังสือ--", "การ์ตูน", "การศึกษา", "ความรู้ทั่วไป", "ท่องเที่ยว", "คอมพิวเตอร์", "ภาษา", "อาหาร", "นิยาย", "สุขภาพ", "สัตว์เลี้ยง", "ประวัติศาสตร์", "ชีวะประวัติ", " " }));
-        getContentPane().add(comboBoxCategory);
-        comboBoxCategory.setBounds(590, 200, 210, 30);
+        bookComboBox.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        bookComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--เลือกหมวดหมู่หนังสือ--", "การ์ตูน", "การศึกษา", "ความรู้ทั่วไป", "ท่องเที่ยว", "คอมพิวเตอร์", "ภาษา", "อาหาร", "นิยาย", "สุขภาพ", "สัตว์เลี้ยง", "ประวัติศาสตร์", "ชีวะประวัติ", " " }));
+        bookComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookComboBoxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(bookComboBox);
+        bookComboBox.setBounds(590, 200, 210, 30);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel18.setText("หมวดหมู่หนังสือ");
@@ -110,23 +126,9 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel22);
         jLabel22.setBounds(480, 250, 95, 30);
 
-        javax.swing.GroupLayout bookpicLayout = new javax.swing.GroupLayout(bookpic);
-        bookpic.setLayout(bookpicLayout);
-        bookpicLayout.setHorizontalGroup(
-            bookpicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 160, Short.MAX_VALUE)
-        );
-        bookpicLayout.setVerticalGroup(
-            bookpicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(bookpic);
-        bookpic.setBounds(600, 250, 160, 190);
-
-        txtPublisher.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtPublisher);
-        txtPublisher.setBounds(190, 150, 210, 30);
+        publisherName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(publisherName);
+        publisherName.setBounds(190, 150, 210, 30);
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel14.setText("สำนักพิมพ์");
@@ -138,13 +140,13 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel13);
         jLabel13.setBounds(120, 200, 70, 30);
 
-        txtAuthor.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtAuthor);
-        txtAuthor.setBounds(190, 200, 210, 30);
+        authorName.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(authorName);
+        authorName.setBounds(190, 200, 210, 30);
 
-        txtPrice.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtPrice);
-        txtPrice.setBounds(190, 250, 210, 30);
+        bookPrice.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(bookPrice);
+        bookPrice.setBounds(190, 250, 210, 30);
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel20.setText("ราคา");
@@ -156,9 +158,9 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel10);
         jLabel10.setBounds(400, 250, 50, 30);
 
-        txtFileSize.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtFileSize);
-        txtFileSize.setBounds(190, 300, 210, 30);
+        fileSize.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(fileSize);
+        fileSize.setBounds(190, 300, 210, 30);
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel17.setText("ขนาดไฟล์");
@@ -170,26 +172,22 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel8);
         jLabel8.setBounds(400, 300, 20, 30);
 
-        txtNumOfPages.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtNumOfPages);
-        txtNumOfPages.setBounds(190, 350, 210, 30);
+        pages.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        getContentPane().add(pages);
+        pages.setBounds(190, 350, 210, 30);
 
         jLabel16.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel16.setText("จำนวนหน้า");
         getContentPane().add(jLabel16);
         jLabel16.setBounds(100, 350, 90, 30);
 
-        txtBookLink.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtBookLink);
-        txtBookLink.setBounds(190, 400, 210, 30);
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel23.setText("ลิงก์ไฟล์หนังสือ");
-        getContentPane().add(jLabel23);
-        jLabel23.setBounds(60, 400, 130, 30);
-
         jSelectPic.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         jSelectPic.setText("เลือกรูป");
+        jSelectPic.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jSelectPicActionPerformed(evt);
+            }
+        });
         getContentPane().add(jSelectPic);
         jSelectPic.setBounds(610, 450, 140, 40);
 
@@ -198,14 +196,29 @@ public class EditBook extends javax.swing.JInternalFrame {
         getContentPane().add(jLabel19);
         jLabel19.setBounds(800, 100, 50, 30);
 
-        jEditBook.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
-        jEditBook.setText("แก้ไขหนังสือ");
-        getContentPane().add(jEditBook);
-        jEditBook.setBounds(390, 500, 150, 50);
+        EditBook.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
+        EditBook.setText("แก้ไขหนังสือ");
+        EditBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditBookActionPerformed(evt);
+            }
+        });
+        getContentPane().add(EditBook);
+        EditBook.setBounds(390, 500, 150, 50);
 
-        txtIdBook.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        getContentPane().add(txtIdBook);
-        txtIdBook.setBounds(190, 50, 210, 30);
+        bookID.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        bookID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookIDActionPerformed(evt);
+            }
+        });
+        bookID.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                bookIDKeyTyped(evt);
+            }
+        });
+        getContentPane().add(bookID);
+        bookID.setBounds(190, 50, 210, 30);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel11.setText("ชื่อหนังสือ");
@@ -217,15 +230,74 @@ public class EditBook extends javax.swing.JInternalFrame {
         jLabel15.setText("แก้ไขหนังสือ");
         getContentPane().add(jLabel15);
         jLabel15.setBounds(420, 0, 100, 40);
+        getContentPane().add(bookpic);
+        bookpic.setBounds(610, 280, 140, 150);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bookIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookIDActionPerformed
+        
+    }//GEN-LAST:event_bookIDActionPerformed
+
+    private void bookComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookComboBoxActionPerformed
+      
+    }//GEN-LAST:event_bookComboBoxActionPerformed
+
+    private void jSelectPicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSelectPicActionPerformed
+        JFileChooser fc = new JFileChooser();
+	fc.addChoosableFileFilter(new OpenFileFilter("png","Photo in PNG format"));
+        fc.addChoosableFileFilter(new OpenFileFilter("jpg","Photo in JPG format"));
+	fc.setAcceptAllFileFilterUsed(false);
+	int value = fc.showOpenDialog(EditBook.this);
+        if(value == JFileChooser.APPROVE_OPTION) {
+            filePic = fc.getSelectedFile();
+            try {
+		bookpic.setImage(ImageIO.read(filePic));
+	    } catch (IOException ex) {
+		Logger.getLogger(ImagePanel.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+    }//GEN-LAST:event_jSelectPicActionPerformed
+
+    private void EditBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBookActionPerformed
+        boolean res = BookDao.findBookById(Integer.parseInt(bookID.getText()));
+        if(!res) {
+            Book b = new Book(Integer.parseInt(bookID.getText()),
+                              bookName.getText(),
+                              ""+bookComboBox.getSelectedItem(),
+                              publisherName.getText(),
+                              authorName.getText(),
+                              bookFileFormat.getText(),      
+                              Integer.parseInt(bookPrice.getText()),
+                              Integer.parseInt(bookCoverPrice.getText()),     
+                              Integer.parseInt(fileSize.getText()),
+                              Integer.parseInt(pages.getText())          
+                              );
+           BookDao.updateBook(b, filePic);
+           JOptionPane.showMessageDialog(EditBook.this, "แก้ไขข้อมูลหนังสือสำเร็จ","ข้อความเตือนการแก้ไขข้อมูล",JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+           JOptionPane.showMessageDialog(EditBook.this, "แก้ไขข้อมูลหนังสือไม่สำเร็จ ไม่พบ ID ของคุณ","ข้อความเตือนการแก้ไขข้อมูล",JOptionPane.WARNING_MESSAGE);           
+        }         
+    }//GEN-LAST:event_EditBookActionPerformed
+
+    private void bookIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_bookIDKeyTyped
+        
+    }//GEN-LAST:event_bookIDKeyTyped
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private image.ImagePanel bookpic;
-    private javax.swing.JComboBox<String> comboBoxCategory;
-    private javax.swing.JButton jEditBook;
+    private javax.swing.JButton EditBook;
+    private javax.swing.JTextField authorName;
+    private javax.swing.JComboBox<String> bookComboBox;
+    private javax.swing.JTextField bookCoverPrice;
+    private javax.swing.JTextField bookFileFormat;
+    private javax.swing.JTextField bookID;
+    private javax.swing.JTextField bookName;
+    private javax.swing.JTextField bookPrice;
+    private tools.ImagePanel bookpic;
+    private javax.swing.JTextField fileSize;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -238,20 +310,12 @@ public class EditBook extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JButton jSelectPic;
-    private javax.swing.JTextField txtAuthor;
-    private javax.swing.JTextField txtBookLink;
-    private javax.swing.JTextField txtBookName;
-    private javax.swing.JTextField txtFileSize;
-    private javax.swing.JTextField txtIdBook;
-    private javax.swing.JTextField txtNumOfPages;
-    private javax.swing.JTextField txtPrice;
-    private javax.swing.JTextField txtPriceCover;
-    private javax.swing.JTextField txtPublisher;
-    private javax.swing.JTextField txtType;
+    private javax.swing.JTextField pages;
+    private javax.swing.JTextField publisherName;
     // End of variables declaration//GEN-END:variables
+    private File filePic;
 }
