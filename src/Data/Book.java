@@ -17,12 +17,10 @@ public class Book {
     public int fileBookSize;
     public int pages;
     public ObjectId eBookCover_id;
-    public Book(int pages){
-        this.pages = pages;
-    }
+    public String fileType;
     public Book(int eBookId,String eBookName,String eBookKinds,String publisherName,
             String authorName,String fileBook,int eBookPrice,int eBookCoverPrice,
-            int fileEbookSize,int pages, ObjectId eBookCover_id) {
+            int fileEbookSize,int pages, ObjectId eBookCover_id,String fileType) {
         this.eBookId = eBookId;
         this.eBookName = eBookName;
         this.publisherName = publisherName;
@@ -33,5 +31,6 @@ public class Book {
         this.fileBookSize = fileEbookSize;
         this.pages = pages;
         this.eBookCover_id = eBookCover_id;
+        this.fileType = fileType;
     }
 }

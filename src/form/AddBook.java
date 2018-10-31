@@ -40,7 +40,7 @@ public class AddBook extends javax.swing.JInternalFrame {
         comboBoxCategory = new javax.swing.JComboBox<>();
         jLabel18 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
-        bookpic = new image.ImagePanel();
+        bookpic = new org.netbeans.modules.form.InvalidComponent();
         txtPublisher = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -119,7 +119,7 @@ public class AddBook extends javax.swing.JInternalFrame {
         );
 
         getContentPane().add(bookpic);
-        bookpic.setBounds(600, 210, 160, 190);
+        bookpic.setBounds(600, 210, 162, 192);
 
         txtPublisher.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         getContentPane().add(txtPublisher);
@@ -211,7 +211,7 @@ public class AddBook extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private image.ImagePanel bookpic;
+    private org.netbeans.modules.form.InvalidComponent bookpic;
     private javax.swing.JComboBox<String> comboBoxCategory;
     private javax.swing.JButton jAddBook;
     private javax.swing.JLabel jLabel10;
