@@ -32,12 +32,12 @@ public class BookDao {
     static MongoCollection<Document> Collection;
     static GridFSBucket gridFSBucket = GridFSBuckets.create(db);
 
-    
+  
     public static void main(String[] args) {
-        //D:\8858736500330l.jpg
-        
+        getMaxId();
+        System.out.println(getMaxId());
+                
     }
-    
     
     
     
@@ -61,7 +61,7 @@ public class BookDao {
                 int fileEbookSize = data.getInteger("fileEbookSize");
                 int pages = data.getInteger("pages");
                 ObjectId eBookCover_id = data.getObjectId("eBookCover_id");
-                result = new Data.Book(0b1, eBookName, eBookKinds, publisherName, authorName, fileBook,
+                result = new Data.Book(eBookId, eBookName, eBookKinds, publisherName, authorName, fileBook,
                         eBookPrice, eBookCoverPrice, fileEbookSize, pages, eBookCover_id);
             }
             return result;
@@ -88,11 +88,11 @@ public class BookDao {
     }
 
     public static boolean deleteBook(int eBookId) {
-        Data.Book book = getBookById(eBookId);
+        //Data.Book book = getBookById(eBookId);
         Collection = db.getCollection("Book");
         try {
-            gridFSBucket.delete(book.eBookCover_id);
-            Collection.deleteOne(eq("eBookId", book.eBookId));
+            //gridFSBucket.delete(book.eBookCover_id);
+            Collection.deleteOne(eq("eBookId", eBookId));
             System.out.println("Delete Success");
             return true;
         } catch (Exception ex) {
@@ -191,7 +191,8 @@ public class BookDao {
     }
 
     public static int getMaxId() {
-        int Max = Integer.MIN_VALUE;
+        int Max = 0;
+        boolean check = false ;
         try {
             Collection = db.getCollection("Book");
             FindIterable<Document> iterateDoc = Collection.find();
@@ -200,9 +201,13 @@ public class BookDao {
                 Document data = new Document(iterator.next());
                 if (data.getInteger("eBookId") > Max) {
                     Max = data.getInteger("eBookId");
+                    check = true;
                 }
             }
+            if(check)
             return Max + 1;
+            else
+                return Max;
         } catch (Exception eX) {
             eX.printStackTrace();
             return 0;
