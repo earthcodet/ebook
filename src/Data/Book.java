@@ -1,3 +1,5 @@
+package Data;
+
 
 import java.awt.Image;
 import org.bson.types.ObjectId;
@@ -15,7 +17,9 @@ public class Book {
     int fileEbookSize;
     int pages;
     ObjectId eBookCover_id;
-
+    public Book(int pages){
+        this.pages = pages;
+    }
     public Book(int eBookId,String eBookName,String eBookKinds,String publisherName,
             String authorName,String fileBook,int eBookPrice,int eBookCoverPrice,
             int fileEbookSize,int pages, ObjectId eBookCover_id) {

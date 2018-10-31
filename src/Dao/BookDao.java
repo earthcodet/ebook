@@ -15,8 +15,8 @@ public class BookDao {
     static MongoClient connectMlab = new MongoClient(new MongoClientURI("mongodb://admin:admin02@ds247223.mlab.com:47223/ebook"));
     static MongoDatabase db = connectMlab.getDatabase("ebook");
     static MongoCollection<Document> Collection;
-    public Book getBookById(int eBookId){
-        Book result ;
+    public Data.Book getBookById(int eBookId){
+        Data.Book result = null;
           try {
             Collection = db.getCollection("Book");
             Document search = new Document("eBookId", eBookId);
@@ -34,12 +34,13 @@ public class BookDao {
                 int fileEbookSize = data.getInteger("fileEbookSize");
                 int pages= data.getInteger("pages");
                 ObjectId eBookCover_id= data.getObjectId("eBookCover_id");
-                result = new Book(eBookId,eBookName,eBookKinds,publisherName,authorName,fileBook,eBookPrice,eBookCoverPrice,fileEbookSize,pages,eBookCover_id);
+                result = new Data.Book(0b1,eBookName,eBookKinds,publisherName,authorName,fileBook,
+                        eBookPrice, eBookCoverPrice,fileEbookSize,pages,eBookCover_id);
             }
             return result;
         } catch (Exception eX) {
             eX.printStackTrace();
         }
-        return result;
+           return result;
     }
 }
